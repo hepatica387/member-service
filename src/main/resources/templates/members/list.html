@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원 목록 | Member Service</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}" href="../../static/css/app.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="top-bar">
+    <a class="brand" th:href="@{/}" href="/">Member Service</a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a th:href="@{/}" href="/">홈</a>
+      <a class="active" th:href="@{/members}" href="/members">회원 목록</a>
+      <a th:href="@{/members/new}" href="/members/new">회원 등록</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>회원 목록</h1>
+        <p>등록된 회원 정보를 확인하고 상세, 수정, 삭제 작업을 진행합니다.</p>
+      </div>
+      <a class="btn primary" th:href="@{/members/new}" href="/members/new">회원 등록</a>
+    </div>
+
+    <div class="empty" th:if="${#lists.isEmpty(members)}">
+      등록된 회원이 없습니다.
+    </div>
+
+    <div class="table-wrap" th:unless="${#lists.isEmpty(members)}">
+      <table>
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">이름</th>
+          <th scope="col">이메일</th>
+          <th scope="col">전화번호</th>
+          <th scope="col">관리</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${members}">
+          <td th:text="${member.id}">1</td>
+          <td>
+            <a th:href="@{/members/{id}(id=${member.id})}" th:text="${member.name}" href="/members/1">홍길동</a>
+          </td>
+          <td th:text="${member.email}">hong@example.com</td>
+          <td th:text="${member.phone}">010-1234-5678</td>
+          <td>
+            <a class="btn" th:href="@{/members/{id}/edit(id=${member.id})}" href="/members/1/edit">수정</a>
+            <form class="inline-form" th:action="@{/members/{id}/delete(id=${member.id})}" method="post">
+              <button class="btn danger" type="submit">삭제</button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>

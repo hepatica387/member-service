@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원 상세 | Member Service</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}" href="../../static/css/app.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="top-bar">
+    <a class="brand" th:href="@{/}" href="/">Member Service</a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a th:href="@{/}" href="/">홈</a>
+      <a class="active" th:href="@{/members}" href="/members">회원 목록</a>
+      <a th:href="@{/members/new}" href="/members/new">회원 등록</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1 th:text="${member.name}">홍길동</h1>
+        <p>회원 상세 정보</p>
+      </div>
+      <div class="actions">
+        <a class="btn" th:href="@{/members/{id}/edit(id=${member.id})}" href="/members/1/edit">수정</a>
+        <a class="btn" th:href="@{/members}" href="/members">목록</a>
+      </div>
+    </div>
+
+    <dl class="detail-list">
+      <div class="detail-row">
+        <dt>ID</dt>
+        <dd th:text="${member.id}">1</dd>
+      </div>
+      <div class="detail-row">
+        <dt>이름</dt>
+        <dd th:text="${member.name}">홍길동</dd>
+      </div>
+      <div class="detail-row">
+        <dt>이메일</dt>
+        <dd th:text="${member.email}">hong@example.com</dd>
+      </div>
+      <div class="detail-row">
+        <dt>전화번호</dt>
+        <dd th:text="${member.phone}">010-1234-5678</dd>
+      </div>
+    </dl>
+
+    <div class="actions" style="margin-top: 20px;">
+      <form th:action="@{/members/{id}/delete(id=${member.id})}" method="post">
+        <button class="btn danger" type="submit">삭제</button>
+      </form>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #172033;
+  background: #f5f7fb;
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px clamp(20px, 5vw, 72px);
+  color: #ffffff;
+  background: #23304a;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+}
+
+.nav a {
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #d9e1f2;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.main {
+  width: min(1080px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 44px);
+}
+
+.page-header p {
+  margin: 8px 0 0;
+  color: #667085;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.panel,
+.metric,
+.form-panel {
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(36, 48, 74, 0.08);
+}
+
+.panel {
+  padding: clamp(24px, 5vw, 48px);
+}
+
+.panel h1 {
+  margin: 0 0 12px;
+  font-size: clamp(32px, 5vw, 52px);
+}
+
+.panel p {
+  max-width: 640px;
+  margin: 0 0 28px;
+  color: #667085;
+  font-size: 18px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 16px;
+  border: 1px solid #c9d3e4;
+  border-radius: 6px;
+  color: #23304a;
+  background: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn.primary {
+  border-color: #2f6fed;
+  color: #ffffff;
+  background: #2f6fed;
+}
+
+.btn.danger {
+  border-color: #d92d20;
+  color: #d92d20;
+}
+
+.btn:hover {
+  filter: brightness(0.96);
+}
+
+.metric {
+  display: grid;
+  align-content: center;
+  padding: 28px;
+}
+
+.metric strong {
+  display: block;
+  font-size: 42px;
+}
+
+.metric span {
+  color: #667085;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e8edf5;
+  text-align: left;
+}
+
+th {
+  color: #475467;
+  background: #f9fafc;
+  font-size: 14px;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.empty {
+  padding: 56px 20px;
+  border: 1px dashed #b8c3d6;
+  border-radius: 8px;
+  color: #667085;
+  background: #ffffff;
+  text-align: center;
+}
+
+.form-panel {
+  max-width: 720px;
+  padding: 28px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.field label {
+  color: #344054;
+  font-weight: 700;
+}
+
+.field input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #c9d3e4;
+  border-radius: 6px;
+  color: #172033;
+  background: #ffffff;
+  font: inherit;
+}
+
+.field input:focus {
+  border-color: #2f6fed;
+  outline: 3px solid rgba(47, 111, 237, 0.16);
+}
+
+.detail-list {
+  display: grid;
+  max-width: 720px;
+  margin: 0;
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  border-bottom: 1px solid #e8edf5;
+}
+
+.detail-row:last-child {
+  border-bottom: 0;
+}
+
+.detail-row dt,
+.detail-row dd {
+  margin: 0;
+  padding: 16px;
+}
+
+.detail-row dt {
+  color: #475467;
+  background: #f9fafc;
+  font-weight: 700;
+}
+
+.inline-form {
+  display: inline;
+}
+
+@media (max-width: 760px) {
+  .top-bar,
+  .page-header,
+  .hero {
+    display: block;
+  }
+
+  .nav,
+  .actions {
+    margin-top: 14px;
+  }
+
+  .metric {
+    margin-top: 18px;
+  }
+
+  .detail-row {
+    grid-template-columns: 1fr;
+  }
+}
