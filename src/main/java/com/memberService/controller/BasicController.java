@@ -3,19 +3,20 @@ package com.memberService.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.memberService.repository.MemberRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.memberService.domain.Member;
-
-import jakarta.persistence.EntityManager;
 
 @Controller
 // @RequestMapping("/members/")
 public class BasicController {
 
-  private final EntityManager entityManager;
+  private final MemberRepository memberRepository;
 
-  BasicController(EntityManager entityManager) {
-    this.entityManager = entityManager;
+  BasicController(MemberRepository memberRepository) {
+    this.memberRepository = memberRepository;
   }
 
   @GetMapping("/")
@@ -38,13 +39,28 @@ public class BasicController {
     return "/members/add";
   }
 
-  @GetMapping("/members/{memberId}")
+  @GetMapping("/members/{id}")
   public String detail() {
     return "/members/detail";
   }
 
-  @GetMapping("/members/{memberId}/edit")
-  public String edit() {
+  @GetMapping("/members/{id}/edit")
+  public String edit(@PathVariable("id") long id, Model model) {
+    Member member = memberRepository.findById(id).orElse(null);
+    model.addAttribute("member", member);
     return "/members/edit";
+  }
+
+  @PostMapping("/members/{id}")
+  public String edit(@PathVariable("id") long id, Member updateMember) {
+    updateMember.setId(id);
+    memberRepository.save(updateMember);
+    return "redirect:/members/" + id;
+  }
+
+  @PostMapping("/members/{id}/delete")
+  public String delete(@PathVariable("id") long id) {
+    memberRepository.deleteById(id);
+    return "redirect:/members/";
   }
 }
