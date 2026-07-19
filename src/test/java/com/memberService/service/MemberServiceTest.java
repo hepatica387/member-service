@@ -85,4 +85,31 @@ class MemberServiceTest {
     verify(memberRepository).findById(1L);
 
   }
+
+  @Test
+  @DisplayName("회원 정보 수정")
+  void updateMember() {
+    // given
+    Member member = new Member("홍길동", "hong@test.com", "01012345678");
+
+    // when
+    member.setName("고길동");
+    memberService.save(member);
+
+    // then
+    verify(memberRepository).save(member);
+  }
+
+  @Test
+  @DisplayName("회원 삭제")
+  void deleteMember() {
+    // given
+    long memberId = 1L;
+
+    // when
+    memberService.delete(memberId);
+
+    // then
+    verify(memberRepository).deleteById(memberId);
+  }
 }
