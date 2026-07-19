@@ -1,22 +1,25 @@
 package com.memberService.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.memberService.repository.MemberRepository;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.memberService.domain.Member;
+import com.memberService.service.MemberService;
 
 @Controller
 // @RequestMapping("/members/")
 public class BasicController {
 
-  private final MemberRepository memberRepository;
+  private final MemberService memberService;
 
-  BasicController(MemberRepository memberRepository) {
-    this.memberRepository = memberRepository;
+  BasicController(MemberService memberService) {
+    this.memberService = memberService;
   }
 
   @GetMapping("/")
@@ -25,7 +28,9 @@ public class BasicController {
   }
 
   @GetMapping("/members")
-  public String members() {
+  public String members(Model model) {
+    List<Member> members = memberService.findAll();
+    model.addAttribute("members", members);
     return "/members/list";
   }
 
@@ -33,20 +38,25 @@ public class BasicController {
   public String add(Model model) {
     Member member = new Member();
     model.addAttribute("member", member);
-    model.addAttribute("name", member.getName());
-    model.addAttribute("email", member.getEmail());
-    model.addAttribute("phone", member.getPhone());
     return "/members/add";
   }
 
+  @PostMapping("/members/new")
+  public String memberAdd(Member member) {
+    memberService.save(member);
+    return "redirect:/members";
+  }
+
   @GetMapping("/members/{id}")
-  public String detail() {
+  public String detail(@PathVariable("id") Long id, Model model) {
+    Member member = memberService.findById(id).orElseThrow();
+    model.addAttribute("member", member);
     return "/members/detail";
   }
 
   @GetMapping("/members/{id}/edit")
   public String edit(@PathVariable("id") long id, Model model) {
-    Member member = memberRepository.findById(id).orElse(null);
+    Member member = memberService.findById(id).orElse(null);
     model.addAttribute("member", member);
     return "/members/edit";
   }
@@ -54,13 +64,13 @@ public class BasicController {
   @PostMapping("/members/{id}")
   public String edit(@PathVariable("id") long id, Member updateMember) {
     updateMember.setId(id);
-    memberRepository.save(updateMember);
+    memberService.save(updateMember);
     return "redirect:/members/" + id;
   }
 
   @PostMapping("/members/{id}/delete")
   public String delete(@PathVariable("id") long id) {
-    memberRepository.deleteById(id);
+    memberService.delete(id);
     return "redirect:/members/";
   }
 }

@@ -3,9 +3,12 @@ package com.memberService.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.memberService.domain.Member;
 import com.memberService.repository.MemberRepository;
 
+@Service
 public class MemberService {
 
   private MemberRepository memberRepository;
@@ -23,11 +26,10 @@ public class MemberService {
   }
 
   public Optional<Member> findById(Long id) {
-    Member member = memberRepository.findById(id).orElseThrow();
-    return Optional.ofNullable(member);
+    return memberRepository.findById(id);
   }
 
-  public void delete(Member member) {
-    memberRepository.delete(member);
+  public void delete(long id) {
+    memberRepository.deleteById(id);
   }
 }
