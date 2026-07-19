@@ -1,4 +1,4 @@
-package com.memberService.member_service;
+package com.memberService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -13,6 +13,10 @@ java {
 	}
 }
 
+springBoot {
+	mainClass = 'com.memberService.MemberServiceApplication'
+}
+
 repositories {
 	mavenCentral()
 }
