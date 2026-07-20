@@ -63,14 +63,13 @@ public class BasicController {
 
   @PostMapping("/members/{id}")
   public String edit(@PathVariable("id") long id, Member updateMember) {
-    updateMember.setId(id);
-    memberService.save(updateMember);
+    memberService.update(id, updateMember);
     return "redirect:/members/" + id;
   }
 
   @PostMapping("/members/{id}/delete")
   public String delete(@PathVariable("id") long id) {
     memberService.delete(id);
-    return "redirect:/members/";
+    return "redirect:/members";
   }
 }

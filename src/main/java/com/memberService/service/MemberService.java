@@ -32,4 +32,12 @@ public class MemberService {
   public void delete(long id) {
     memberRepository.deleteById(id);
   }
+
+  public void update(Long id, Member updateMember) {
+    Member findMember = memberRepository.findById(id).orElseThrow();
+    findMember.setName(updateMember.getName());
+    findMember.setEmail(updateMember.getEmail());
+    findMember.setPhone(updateMember.getPhone());
+    memberRepository.save(findMember);
+  }
 }
